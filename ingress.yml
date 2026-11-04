@@ -1,0 +1,43 @@
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: vamsi-ingress
+  namespace: default
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /$2
+    nginx.ingress.kubernetes.io/ssl-redirect: "false"
+    nginx.ingress.kubernetes.io/use-regex: "true"
+spec:
+  ingressClassName: nginx
+  rules:
+    - http:
+        paths:
+          - path: /flight
+            pathType: Prefix
+            backend:
+              service:
+                name: myservice-1
+                port:
+                  number: 80
+          - path: /pubg
+            pathType: Prefix
+            backend:
+              service:
+                name: myservice-2
+                port:
+                  number: 80
+          - path: /yatra
+            pathType: Prefix
+            backend:
+              service:
+                name: myservice-3
+                port:
+                  number: 80
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: myservice-4
+                port:
+                  number: 80
